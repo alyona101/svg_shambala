@@ -4,6 +4,7 @@
 #include <iostream>
 #include <memory>
 #include <string>
+#include <vector>
 
 namespace svg {
 
@@ -96,7 +97,8 @@ public:
  * Класс Text моделирует элемент <text> для отображения текста
  * https://developer.mozilla.org/en-US/docs/Web/SVG/Element/text
  */
-class Text {
+class Text final : public Object 
+{
 public:
     // Задаёт координаты опорной точки (атрибуты x и y)
     Text& SetPosition(Point pos);
@@ -113,10 +115,21 @@ public:
     // Задаёт толщину шрифта (атрибут font-weight)
     Text& SetFontWeight(std::string font_weight);
 
+    // Задаёт цвет шрифта (атрибут font-fill)
+    Text& SetFontFill(std::string font_fill);
+
     // Задаёт текстовое содержимое объекта (отображается внутри тега text)
     Text& SetData(std::string data);
+private:
+    Point pos_;
+    Point offset_;
+    uint32_t font_size_ = 1;
+    std::string font_family_;
+    std::string font_weight_;
+    std::string font_fill_ = "black";
+    std::string data_;
 
-    // Прочие данные и методы, необходимые для реализации элемента <text>
+    void RenderObject(const RenderContext& context) const override;
 };
 
 class Document {
