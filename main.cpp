@@ -1,6 +1,5 @@
 #define _USE_MATH_DEFINES
 #include "svg.h"
-
 #include <cmath>
 
 using namespace std::literals;
@@ -63,5 +62,9 @@ int main() {
     RenderContext ctx(std::cout, 2, 2);
     c.Render(ctx);
 
+    Text t;
+    t.SetFontFamily("Verdana"s).SetPosition({ 35, 20 }).SetOffset({ 0, 6 }).SetFontSize(12)
+    .SetFontWeight("bold"s).SetData("Hello C++"s));
+    
     std::cout << "</svg>"sv;
 }
